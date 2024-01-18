@@ -1,0 +1,29 @@
+
+
+
+
+
+    <div style="text-align: center; margin-top: 20px;">
+    <h1>User Rating App</h1>
+    <app-rating [maxRating]="5" (ratingSelected)="onRatingSelected($event)"></app-rating>
+    <input type="checkbox" [(ngModel)]="checkbox1" (change)="sortAscending()">lowest rating first
+    <input type="checkbox" [(ngModel)]="checkbox2" (change)="sortDescending()">highest rating first
+<div>
+
+
+
+
+  
+    <div *ngIf="userRatings.length > 0">
+        <h2>User Ratings:</h2>
+        <ul>
+          <li *ngFor="let userRating of userRatings">
+            {{ userRating.username }} 
+            <app-rating [maxRating]="5" [selectedRating]="userRating.rating"></app-rating>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+   

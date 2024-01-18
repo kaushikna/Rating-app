@@ -1,0 +1,12 @@
+<div>
+    <input type="text" placeholder="Enter your username" [(ngModel)]="username" />
+    <span *ngFor="let star of stars; let i = index"
+          (click)="setRating(i + 1)"
+          [class.active]="i < selectedRating"
+    >★</span>
+  </div>
+
+  <div>
+    <button (click)="submitform()">Save</button>
+    <button (click)="clearform()">Cancel</button>
+  </div>

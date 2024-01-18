@@ -1,0 +1,8 @@
+span {
+    cursor: pointer;
+    color: gray;
+  }
+  
+  span.active {
+    color: gold;
+  }
