@@ -6,3 +6,16 @@ span {
   span.active {
     color: gold;
   }
+
+
+  .table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  table {
+    width: 30%; 
+    margin: 0 auto; 
+  }
+  

@@ -4,26 +4,41 @@
 
 
     <div style="text-align: center; margin-top: 20px;">
-    <h1>User Rating App</h1>
-    <app-rating [maxRating]="5" (ratingSelected)="onRatingSelected($event)"></app-rating>
-    <input type="checkbox" [(ngModel)]="checkbox1" (change)="sortAscending()">lowest rating first
-    <input type="checkbox" [(ngModel)]="checkbox2" (change)="sortDescending()">highest rating first
+    <h1>Rating list</h1>
+    <!-- <app-rating [maxRating]="5" (ratingSelected)="onRatingSelected($event)"></app-rating> -->
+    <div>sort by
+      <input type="checkbox" [(ngModel)]="checkbox2" (change)="sortDescending()">highest rating first
+      <input type="checkbox" [(ngModel)]="checkbox1" (change)="sortAscending()">lowest rating first
+    </div>
+    
+    <div>
+      <button routerLink="/rating-from">Add New User</button>
+    </div>
 <div>
 
 
 
 
+
+  <div *ngIf="userRatings.length > 0" class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let userRating of userRatings">
+          <td>{{ userRating.username }}</td>
+          <td>
+            <span *ngFor="let star of stars; let i = index" [class.active]="i < userRating.rating">★</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   
-    <div *ngIf="userRatings.length > 0">
-        <h2>User Ratings:</h2>
-        <ul>
-          <li *ngFor="let userRating of userRatings">
-            {{ userRating.username }} 
-            <app-rating [maxRating]="5" [selectedRating]="userRating.rating"></app-rating>
-          </li>
-        </ul>
-      </div>
-    </div>
 
 
    

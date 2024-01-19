@@ -17,35 +17,52 @@ export class RatingComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize from localStorage if available
-    const storedRating = localStorage.getItem('userRating');
-    const storedUsername = localStorage.getItem('username');
-    
-    if (storedRating && storedUsername) {
-      this.selectedRating = +storedRating;
-      this.username = storedUsername;
-      this.ratingSelected.emit({ rating: this.selectedRating, username: this.username });
+    const storedRatings = localStorage.getItem('userRatings');
+
+    if (storedRatings) {
+      // Parse the stored string into an array
+      const storedUserRatings = JSON.parse(storedRatings);
+
+      // Emit each stored rating
+      storedUserRatings.forEach((userRating: { rating: number, username: string }) => {
+        this.ratingSelected.emit(userRating);
+      });
     }
   }
 
   setRating(rating: number): void {
     this.selectedRating = rating;
-
-  
   }
 
   saveToLocalStorage(): void {
-    localStorage.setItem('userRating', this.selectedRating.toString());
-    localStorage.setItem('username', this.username);
+    let storedUserRatings = localStorage.getItem('userRatings');
+
+    // If no data is stored yet, initialize an empty array
+    if (!storedUserRatings) {
+      storedUserRatings = '[]';
+    }
+
+    // Parse the stored string into an array
+    const userRatingsArray = JSON.parse(storedUserRatings);
+
+    // Add the new rating to the array
+    userRatingsArray.push({ rating: this.selectedRating, username: this.username });
+
+    // Save the updated array back to localStorage
+    localStorage.setItem('userRatings', JSON.stringify(userRatingsArray));
   
   }
   submitform(){
-    this.saveToLocalStorage()
+    this.saveToLocalStorage();
     this.ratingSelected.emit({ rating: this.selectedRating, username: this.username });
+    this.selectedRating = 0;
+    this.username = '';
     this.router.navigate(['/rating-list']);
 
   }
 
   clearform(){
-    this.ratingSelected.emit({ rating: 0, username: '' });
+    this.selectedRating=0 
+     this.username=''
   }
 }
